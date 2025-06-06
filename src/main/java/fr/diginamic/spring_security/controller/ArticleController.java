@@ -5,12 +5,11 @@ import fr.diginamic.spring_security.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 @RequestMapping("/article")
 public class ArticleController {
     @Autowired
@@ -25,9 +24,22 @@ public class ArticleController {
     @PostMapping("/new")
     public String registerUser(@ModelAttribute Article article, Authentication authentication) throws Exception {    // Pour avoir auteur de l'article
         String username = ((UserDetails) authentication.getPrincipal()).getUsername();
-        articleRepository.save(new Article(article.getTitre(), article.getContenu()));
-        return "article créé";
+        articleRepository.save(new Article(article.getTitre(), article.getContenu(), username));
+        return "redirect:/article/all";
     }
 
+    @GetMapping("/all")
+    public String allArticles(Model model) {
+        model.addAttribute("articles", articleRepository.findAll());
+        return "article-all";
+    }
+
+    @GetMapping("/{id}")
+    public String articleDetail(@PathVariable Integer id, Model model) {
+        Article article = articleRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Article non trouvé"));
+        model.addAttribute("article", article);
+        return "article-detail";
+    }
 
 }

@@ -51,8 +51,8 @@ public class SecurityConfig {
                 http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth->auth
-                        .requestMatchers("/hello/public", "/login", "/h2-console/**", "/register", "/article/list", "/user-app/register").permitAll()  // Ne pas oublier les pages mdp perdu / register /modifs mdp
-                        .requestMatchers("/hello/auth").authenticated()
+                        .requestMatchers("/hello/public", "/login", "/h2-console/**", "/register", "/article/all", "/user-app/register","/css/**").permitAll()  // Ne pas oublier les pages mdp perdu / register /modifs mdp
+                        .requestMatchers("/hello/auth", "/article/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

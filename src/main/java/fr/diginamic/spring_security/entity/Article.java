@@ -17,11 +17,19 @@ public class Article {
     @Column(unique = true)
     private String titre;
     private String contenu;
+    private String auteur;
 
     public Article(String titre, String contenu) {
         this.titre = titre;
         this.contenu = contenu;
     }
+
+    public Article(String titre, String contenu, String auteur) {
+        this.titre = titre;
+        this.contenu = contenu;
+        this.auteur = auteur;
+    }
+
 
     public Integer getId() {
         return id;
@@ -45,5 +53,13 @@ public class Article {
 
     public void setContenu(String contenu) {
         this.contenu = contenu;
+    }
+
+    public String getAuteur() {
+        return auteur;
+    }
+
+    public void setAuteur(String auteur) {
+        this.auteur = auteur;
     }
 }

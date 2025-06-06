@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tous les Articles</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+
+</head>
+<body>
+<div class="container">
+    <header class="header">
+        <nav class="nav">
+            <a href="/article/all" class="nav-btn">Liste d'Articles</a>
+            <a href="/hello/private" class="nav-btn">Accueil</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Tous les Articles</h1>
+
+        <div th:if="${#lists.isEmpty(articles)}" class="no-articles">
+            <h2>Aucun article disponible</h2>
+            <p>Il n'y a pas encore d'articles publiés.</p>
+        </div>
+
+        <div th:unless="${#lists.isEmpty(articles)}" class="articles-list">
+            <article th:each="article : ${articles}" class="article-card">
+                <h2 th:text="${article.titre}">
+                    Titre de l'article
+                </h2>
+
+                <div class="article-excerpt">
+                    <p th:text="${#strings.abbreviate(article.contenu, 200)}">
+                        Extrait du contenu de l'article...
+                    </p>
+                </div>
+                <div class="article-author">
+                    <span class="article-author-infos">Par : <strong th:text="${article.auteur}">Auteur</strong></span>
+                </div>
+
+
+                <div class="article-actions">
+                    <a th:href="@{/article/{id}(id=${article.id})}" class="btn">
+                        Lire l'article →
+                    </a>
+                </div>
+
+            </article>
+        </div>
+
+        <a href="/add-article" class="btn-create">Créer un nouvel article</a>
+
+    </main>
+</div>
+</body>
+</html>

@@ -2,15 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Connexion</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
 </head>
-<body>
+<body class="form">
 <h2>Connexion</h2>
-<form th:action="@{/login}" method="post">
+<form th:action="@{/login}" method="post" class="form-content">
     <label>Email :</label>
     <input type="text" name="username" /><br/>
     <label>Mot de passe :</label>
     <input type="password" name="password" /><br/>
-    <button type="submit">Se connecter</button>
+    <button type="submit" class="btn-submit">Se connecter</button>
 </form>
 </body>
 </html>
